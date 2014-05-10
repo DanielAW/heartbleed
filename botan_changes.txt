@@ -1,0 +1,16 @@
+1. botan/src/lib/tls/tls_policy.h:
+    line 81: return false => return true
+2. botan/src/lib/tls/tls_heartbeats.h
+    add new member "size_t m_payload_len"
+3. botan/src/lib/tls/tls_heartbeats.cpp
+    method Heartbeat_Message(): add "m_payload_len(payload_len)"
+    method Heartbeat_message::contents(): 
+        before:
+        send_buf[1] = get_byte<u16bit>(0, m_payload.size());
+        send_buf[2] = get_byte<u16bit>(1, m_payload.size());
+        after:
+        send_buf[1] = get_byte<u16bit>(0, m_payload_len);
+        send_buf[2] = get_byte<u16bit>(1, m_payload_len);
+
+    TODO
+        
